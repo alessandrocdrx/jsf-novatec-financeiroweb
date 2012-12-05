@@ -2,6 +2,8 @@ package financeiro.usuario;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -23,6 +25,15 @@ public class Usuario implements Serializable {
 	private String idioma;
 	private Boolean ativo;
 
+	@ElementCollection(targetClass = String.class)
+	@JoinTable (
+			name = "usuario_permissao", 
+			uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario", "permissao"})},
+			joinColumns = @JoinColumn(name = "usuario"))
+	@Column(name = "permissao", length=50)
+	
+	private Set<String> permissao = new HashSet<String>();
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -95,6 +106,14 @@ public class Usuario implements Serializable {
 		} else if (!senha.equals(other.senha))
 			return false;
 		return true;
+	}
+	
+	public Set<String> getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Set<String> permissao) {
+		this.permissao = permissao;
 	}
 
 	public Integer getCodigo() {
