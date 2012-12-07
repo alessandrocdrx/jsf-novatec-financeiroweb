@@ -32,12 +32,18 @@
 		<res-auth>Container</res-auth>
 	</resource-ref>
 
+	<!-- Configuracoes do EL2 -->
+	<context-param>
+		<param-name>com.sun.faces.expressionsFactory</param-name>
+		<param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+	</context-param>
+
 	<!-- Spring Security -->
 	<context-param>
-		<param-name>applicationContext.xml</param-name>
+		<param-name>contextConfigLocation</param-name>
 		<param-value>
-  		/WEB-INF/applicationContext.xml
-  		/WEB-INF/applicationContext-security.xml
+	  		/WEB-INF/applicationContext.xml
+  			/WEB-INF/applicationContext-security.xml
   	</param-value>
 	</context-param>
 	<filter>
@@ -49,6 +55,6 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	<listener>
-		<listener-class>org.springframework.web.contextContextLoaderListener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 </web-app>
